@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="vehicle-detail-container">
+    <div class="vehicle-gallery">
+        <div class="main-image">
+            <img src="{{ url_for('static', filename=vehicle.imagen) }}" alt="{{ vehicle.marca }} {{ vehicle.modelo }}" class="featured-image">
+        </div>
+        {% if vehicle.imagenes_adicionales %}
+        <div class="thumbnail-grid">
+            {% for imagen in vehicle.imagenes_adicionales %}
+            <div class="thumbnail">
+                <img src="{{ url_for('static', filename=imagen) }}" alt="Vista adicional">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="vehicle-info-container">
+        <h1 class="vehicle-title">{{ vehicle.marca }} {{ vehicle.modelo }}</h1>
+        <div class="vehicle-price">${{ "{:,.2f}".format(vehicle.price) }}</div>
+        
+        <div class="specs-grid">
+            <div class="spec-item">
+                <span class="spec-label">Año</span>
+                <span class="spec-value">{{ vehicle.año }}</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Kilometraje</span>
+                <span class="spec-value">{{ "{:,}".format(vehicle.kilometraje) }} km</span>
+            </div>
+            {% if vehicle.detalles_adicionales %}
+                {% for key, value in vehicle.detalles_adicionales.items() %}
+                <div class="spec-item">
+                    <span class="spec-label">{{ key|title }}</span>
+                    <span class="spec-value">{{ value }}</span>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="vehicle-description">
+            <h2>Descripción</h2>
+            <p>{{ vehicle.descripcion }}</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="https://wa.me/?text=Me%20interesa%20este%20vehículo:%20{{ vehicle.marca }}%20{{ vehicle.modelo }}" 
+               class="btn btn-whatsapp" target="_blank">
+                Contactar por WhatsApp
+            </a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                Volver al Catálogo
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

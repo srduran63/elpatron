@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="site-title">El Patrón</h1>
+
+<div class="vehicles-grid">
+    <div class="search-section">
+        <div class="search-container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="Toyota">Toyota</button>
+                <button class="filter-btn" data-filter="Honda">Honda</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="vehicles">
+        {% for vehicle in vehicles %}
+        <div class="vehicle" data-marca="{{ vehicle.marca }}">
+            <div class="vehicle-image-container">
+                <img src="{{ url_for('static', filename=vehicle.imagen) }}" alt="{{ vehicle.marca }} {{ vehicle.modelo }}" class="vehicle-image">
+                <div class="vehicle-badge">{{ vehicle.marca }}</div>
+            </div>
+            <div class="vehicle-content">
+                <h2>{{ vehicle.marca }} {{ vehicle.modelo }}</h2>
+                <div class="vehicle-details">
+                    <div class="vehicle-detail">
+                        <i class="fas fa-calendar-alt"></i> {{ vehicle.año }}
+                    </div>
+                    <div class="vehicle-detail">
+                        <i class="fas fa-road"></i> {{ "{:,}".format(vehicle.kilometraje) }} mi
+                    </div>
+                </div>
+                {% if vehicle.detalles_adicionales %}
+                <div class="vehicle-extra-details">
+                    <div class="detail-item">
+                        <i class="fas fa-cog"></i> {{ vehicle.detalles_adicionales.transmision }}
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-gas-pump"></i> {{ vehicle.detalles_adicionales.combustible }}
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-car"></i> {{ vehicle.detalles_adicionales.version }}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="vehicle-description">{{ vehicle.descripcion }}</div>
+                <div class="vehicle-price">${{ "{:,}".format(vehicle.price) }}</div>
+                <div class="vehicle-actions">
+                    <a href="{{ url_for('vehicle_detail', vehicle_id=vehicle.id) }}" class="btn btn-primary">
+                        Ver Detalles
+                    </a>
+                    <a href="https://wa.me/?text=Me%20interesa%20este%20vehículo" class="btn btn-whatsapp" target="_blank">
+                        Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const vehicles = document.querySelectorAll('.vehicle');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter vehicles
+                vehicles.forEach(vehicle => {
+                    const marca = vehicle.getAttribute('data-marca');
+                    if (filter === 'all' || filter === marca) {
+                        vehicle.style.display = 'block';
+                        vehicle.classList.add('show');
+                    } else {
+                        vehicle.style.display = 'none';
+                        vehicle.classList.remove('show');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

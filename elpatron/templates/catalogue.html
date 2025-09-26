@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="site-title">Catálogo de Vehículos</h1>
+
+<div class="vehicles-grid">
+    {% for vehicle in vehicles %}
+    <div class="vehicle-card">
+        <!-- ...existing vehicle card code... -->
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

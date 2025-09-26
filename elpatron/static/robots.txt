@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://elpatron217.tk/sitemap.xml

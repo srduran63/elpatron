@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="izfGMmSOWzwGihqsZLF6rwPkigzidXZm0mQhstOdnpg" />
+    <title>El Patrón</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="logo">El Patrón</div>
+        <nav class="nav-menu">
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Inicio</a>
+                </li>
+                <li><a href="{{ url_for('index') }}#vehicles" class="nav-link">Vehículos</a></li>
+                <li><a href="{{ url_for('index') }}#about" class="nav-link">Nosotros</a></li>
+                <li><a href="{{ url_for('index') }}#contact" class="nav-link">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+
+    <div class="social-floating">
+        <a href="https://facebook.com/your-page" class="social-icon facebook" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com/your-page" class="social-icon instagram" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://tiktok.com/@your-page" class="social-icon tiktok" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2>Contáctanos</h2>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Teléfono (opcional)">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required placeholder="Mensaje"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+</body>
+
+</html>
+
+<!-- Configuración DNS en Freenom
+Tipo A:    elpatron217.tk     ->  [IP de tu servidor]
+CNAME:     www                 ->  elpatron217.tk
+TTL:       3600
+-->
