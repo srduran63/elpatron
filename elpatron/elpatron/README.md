@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # El Patrón 217 Corp - Dealer de Autos
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/35a143d7-0052-4932-acb3-2ca12b396927/deploy-status)](https://app.netlify.com/projects/keen-cranachan-81648f/deploys)
@@ -115,7 +114,3 @@ En `static/css/main.css` modificar variables CSS:
 ## Soporte
 
 Para ajustes o consultas sobre efectos 3D y personalización del sitio.
-=======
-# pagina-de-patron
-daler de carros
->>>>>>> 466509a44566618cc269626e6390af29c2cc68ae

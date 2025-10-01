@@ -1,9 +1,7 @@
-{% extends "base.html" %} {% block content %}
-<div style="text-align: center; padding: 50px;">
-    <h2 style="font-size: 3rem; color: var(--accent-gold);">404</h2>
-    <p style="font-size: 1.5rem; margin: 20px 0;">Lo sentimos, no pudimos encontrar la página que buscas.</p>
-    <a href="{{ url_for('index') }}" class="view-btn" style="display: inline-block; margin-top: 20px;">
-        Volver al Inicio
-    </a>
+{% extends "base.html" %} {% block title %}Página no encontrada - El Patrón 217 Corp{% endblock %} {% block content %}
+<div style="text-align:center;margin-top:80px;">
+    <h1 style="font-family:'Orbitron',sans-serif;font-size:3em;color:#e11d48;">404</h1>
+    <p style="font-size:1.4em;color:#fff;">¡Ups! La página que buscas no existe.</p>
+    <a href="/" class="btn-details" style="margin-top:24px;display:inline-block;">Volver al inicio</a>
 </div>
 {% endblock %}

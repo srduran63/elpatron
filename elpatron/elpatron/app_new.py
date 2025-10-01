@@ -1,16 +1,7 @@
 from flask import Flask, render_template, request, jsonify, abort, url_for, redirect
 import os
-import config  # NUEVO: Importamos el módulo config
-
 
 app = Flask(__name__)
-
-# ---------------- NUEVA LÓGICA DE CONFIGURACIÓN ----------------
-if os.environ.get('FLASK_ENV') == 'production':
-    app.config.from_object('config.ProductionConfig')
-else:
-    app.config.from_object('config.DevelopmentConfig')
-# ---------------------------------------------------------------
 
 # Inserción: importar generador dinámico
 try:
@@ -152,9 +143,9 @@ def catalog(brand):
         car_list = cars[brand]
         html = f"""
         <!DOCTYPE html>
-        <html lang=\"es\">
+        <html lang="es">
         <head>
-            <meta charset=\"UTF-8\">
+            <meta charset="UTF-8">
             <title>{brand.capitalize()} Catálogo</title>
             <style>
                 body {{ font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; background: #f7f7fa; }}
@@ -166,16 +157,13 @@ def catalog(brand):
             </style>
         </head>
         <body>
-            <a class=\"back-link\" href=\"/brands\">&larr; Volver a las marcas</a>
-            <h1 style=\"color:#222;\">Modelos de {brand.capitalize()}</h1>
+            <a class="back-link" href="/brands">&larr; Volver a las marcas</a>
+            <h1 style="color:#222;">Modelos de {brand.capitalize()}</h1>
             <ul>
         """
         for car in car_list:
-            # Usar url_for para la imagen (asume que car['imagen'] es solo el nombre del archivo)
-            image_url = url_for('static', filename=f"images/{car['model'].lower()}_2023_blanco_1.jpg") if 'model' in car else ''
             html += f"""
                 <li>
-                    <img src=\"{image_url}\" alt=\"Foto de {car['model']}\" style=\"width:200px; height:auto;\"><br>
                     <strong>Modelo:</strong> {car['model']}<br>
                     <strong>Año:</strong> {car['year']}<br>
                     <strong>Millas:</strong> {car['miles']:,}
@@ -183,7 +171,7 @@ def catalog(brand):
             """
         html += """
             </ul>
-            <p style=\"margin-top:40px;\"><a href=\"/\">Ir al catálogo avanzado</a></p>
+            <p style="margin-top:40px;"><a href="/">Ir al catálogo avanzado</a></p>
         </body>
         </html>
         """
@@ -200,7 +188,9 @@ def favicon():
     return redirect(url_for('static', filename='favicon.ico'))
 
 if __name__ == '__main__':
-    # No cambiar el directorio de trabajo, usar rutas relativas para compatibilidad en Render
+    base_dir = r'c:\Users\Lenovo\Desktop\elpatron'
+    if os.getcwd().lower() != base_dir.lower():
+        os.chdir(base_dir)
     import threading
     import webbrowser
 
@@ -209,3 +199,23 @@ if __name__ == '__main__':
 
     threading.Timer(1.0, open_browser).start()
     app.run(debug=True)
+
+# Entorno virtual
+.venv/
+venv/
+
+# Variables de entorno
+.env
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+git --version
+git pull origin main --allow-unrelated-histories
+git add .
+git commit -m "Merge remoto y local"
+git push -u origin main
